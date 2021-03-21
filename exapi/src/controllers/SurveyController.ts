@@ -26,8 +26,6 @@ class SurveyController{
         const SurveyRepository = getCustomRepository(SurveysRepository);
 
         const surveys = await SurveyRepository.find()
-        console.log(surveys)
-
         return response.status(200).json(surveys)
 
     }

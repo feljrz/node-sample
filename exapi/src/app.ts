@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import express, { NextFunction } from "express";
 import "express-async-errors";
+import { Request, Response } from "express";
 
 import createConnection from "./database"; //Por padrao reqonhece que o arquivo de importação é o index
 import { router } from "./routes";
@@ -12,21 +13,19 @@ const app = express();
 app.use(express.json());
 app.use(router);
 
-// Middleware
-// app.use(
-//   (err: Error, request: Request, response: Response, _next: NextFunction) => {
-//     if (err instanceof AppError) {
-//       return response.status(err.statusCode).json({
-//         message: err.message,
-//       });
-//     }
+app.use(
+  (error: Error, request: Request, response: Response, _next: NextFunction) => {
+    if (error instanceof AppError) {
+      return response.status(error.statusCode).json({
+        message_error: error.message,
+      });
+    }
 
-//     // Se não for um dos especificados provavel que será um erro interno do servidor
-//     return response.status(500).json({
-//       status: "Error",
-//       message: `Internal server error ${err.message}`,
-//     });
-//   }
-// );
+    return response.status(Number(500)).json({
+      status: "Error",
+      message: `Server internal error ${error.message}`,
+    });
+  }
+);
 
 export { app };

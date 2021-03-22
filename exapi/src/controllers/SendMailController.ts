@@ -15,7 +15,7 @@ class SendMailController {
     const SurveyRepository = getCustomRepository(SurveysRepository);
     const UserRepository = getCustomRepository(UsersRepository);
 
-    const user = await UserRepository.findOne({ email }); //Só é possivel realizar a consulta desta maneira pelo overload em email
+    const user = await UserRepository.findOne({ email });
     const survey = await SurveyRepository.findOne({ id: survey_id });
 
     if (!survey) {
@@ -25,7 +25,6 @@ class SendMailController {
       throw new AppError("User does not exists");
     }
 
-    //Injetando o serviço de enviar email
     const variables = {
       name: user.name,
       title: survey.title,
@@ -35,11 +34,9 @@ class SendMailController {
     };
     const npsPath = resolve(__dirname, "..", "views", "email", "npsMail.hbs");
 
-    //Verificando se usuario ja existe na tabela para evitar duplicidade de dados
     const SurveyUserAlreadyExists = await SurveyUserRepository.findOne({
-      // where: [{user_id: user.id}, {value: null}], Representa um OR
       where: { user_id: user.id, value: null },
-      relations: ["user", "survey"], //Retornará as relações
+      relations: ["user", "survey"],
     });
 
     if (SurveyUserAlreadyExists) {
@@ -48,7 +45,6 @@ class SendMailController {
       return response.status(200).json(SurveyUserAlreadyExists);
     }
 
-    //Salvando as infromações na tabela surveyUser
     const surveyUser = SurveyUserRepository.create({
       user_id: user.id,
       survey_id: survey_id,

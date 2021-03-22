@@ -20,14 +20,10 @@ class SendMailService {
   }
 
   async execute(to: string, subject: string, variables: object, path: string) {
-    //Realizando parse
-
     const templateFileContent = fs.readFileSync(path).toString("utf8");
 
-    //Compilando template com handlebars
     const mailTemplateParse = handlebars.compile(templateFileContent);
 
-    //Parse das variáveis ao documento
     const html = mailTemplateParse(variables);
 
     const message = await this.client.sendMail({
@@ -41,5 +37,4 @@ class SendMailService {
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(message));
   }
 }
-// export { SendMailService }
-export default new SendMailService(); //Para criar a instância de conexão ao ser injetado
+export default new SendMailService();

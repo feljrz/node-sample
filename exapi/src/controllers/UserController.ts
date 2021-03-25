@@ -20,6 +20,7 @@ class UserController {
     // }
 
     //abortEarly não para na primeira validação
+    
     try {
       await schema.validate(request.body, { abortEarly: false });
     } catch (err) {

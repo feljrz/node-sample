@@ -32,6 +32,9 @@ class SendMailController {
       id: "",
       link: process.env.URL_MAIL,
     };
+
+
+
     const npsPath = resolve(__dirname, "..", "views", "email", "npsMail.hbs");
 
     const SurveyUserAlreadyExists = await SurveyUserRepository.findOne({
@@ -59,3 +62,4 @@ class SendMailController {
   }
 }
 export { SendMailController };
+

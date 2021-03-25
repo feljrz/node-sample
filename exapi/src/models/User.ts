@@ -6,7 +6,7 @@ class User {
   @PrimaryColumn()
   readonly id: string;
 
-  @Column() /*@Column("name") caso o atributo tenha nome diferente na tabela*/
+  @Column() 
   name: string;
 
   @Column()
@@ -23,3 +23,5 @@ class User {
 }
 
 export { User };
+
+

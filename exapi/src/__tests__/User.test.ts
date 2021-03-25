@@ -31,6 +31,8 @@ describe("Users", () => {
       email: "example@example.com",
     });
 
-    expect(response.status).toBe(400); //Why not?
+    expect(response.status).toBe(400); 
   });
 });
+
+

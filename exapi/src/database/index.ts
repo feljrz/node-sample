@@ -12,3 +12,4 @@ export default async (): Promise<Connection> => {
     })
   );
 };
+

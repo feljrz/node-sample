@@ -18,7 +18,7 @@ class AnswerController {
       throw new AppError("Survey User does not exists");
     }
 
-    surveyUser.value = Number(value); //Necessário realizar o cast pois o valor por padrão é undefined
+    surveyUser.value = Number(value);
 
     await SurveyUserRepository.save(surveyUser);
 
@@ -27,3 +27,5 @@ class AnswerController {
 }
 
 export { AnswerController };
+
+
